@@ -3,6 +3,11 @@ import Prompt from "@/models/prompt";
 
 export const POST = async (request) => {
     const { userId, prompt, tag } = await request.json();
+    
+    // Check if user is logged in
+    if (!userId) {
+        return new Response("User not authenticated", { status: 401 });
+    }
 
     try {
         await connectToDb();
